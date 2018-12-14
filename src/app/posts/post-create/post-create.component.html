@@ -1,0 +1,11 @@
+
+<!-- Two Way binding with ngModel part of FormsModule from @angular/form -->
+<mat-card>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredTitle" placeholder="Title">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput rows="10" [(ngModel)]="enteredContent" placeholder="Content"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onAddPost()">Save Post</button>
+</mat-card>
