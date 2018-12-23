@@ -1,9 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+
+const Post = require('./models/post');
 
 const app = express();
 
+mongoose.connect('mongodb+srv://meanuser:7v2XbhqPsWewtf9c@cluster0-wkekd.mongodb.net/test?retryWrites=true')
+.then(() => {
+  console.log('Connected to MongoDB');
+})
+.catch(() => {
+  console.log('Connection Failed to MongoDB');
+});
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -20,7 +32,10 @@ app.use((req, res, next) => {
 
 app.post('/api/posts', (req, res, next) => {
 
-  const post = req.body;
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
+  });
   console.log('Post >>> '+ post);
 
   res.status(201).json({
